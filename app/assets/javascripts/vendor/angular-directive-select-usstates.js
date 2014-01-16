@@ -3,7 +3,7 @@
  * @version v0.1.0-dev-2013-07-12
  *
  * see https://raw2.github.com/james-huston/angular-directive-select-usstate/master/build/angular-directive-select-usstates.js
- * note: minified version has minification errors; besides, added bootstrap styling to inline template
+ * note: fixed minification errors; besides, added bootstrap styling to inline template
  */
 (function (window, angular, undefined) {
 
@@ -23,11 +23,11 @@ angular.module('angular-directive-select-usstates', ['templates-angular-directiv
     replace: true,
     scope: true,
 
-    link: function ($scope, element, attributes) {
+    link: ['$scope', 'element', 'attributes', function ($scope, element, attributes) {
       $scope.emptyName = attributes.emptyname || 'Select State';
-    },
+    }],
 
-    controller: function ($scope) {
+    controller: ['$scope', function ($scope) {
       $scope.selectedState = '';
 
       $scope.states = [
@@ -236,7 +236,7 @@ angular.module('angular-directive-select-usstates', ['templates-angular-directiv
             "abbreviation": "WY"
         }
       ];
-    }
+    }]
 
   };
 });
