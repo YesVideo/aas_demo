@@ -3,7 +3,7 @@ lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'aas_demo/version'
 
-Gem::specification.new do |s|
+Gem::Specification.new do |s|
   s.name          = "aas_demo"
   s.version       = AasDemo::VERSION
   s.authors       = ["YesVideo"]
