@@ -1,0 +1,65 @@
+<ul class="nav nav-pills">
+  <li class="active"><a href="#/collections">Collections</a></li>
+  <li><a href="#/orders">Orders</a></li>
+</ul>
+
+<ol class="breadcrumb">
+  <li class="active">Collection {{collection.id}}</li>
+</ol>
+
+<div class="panel panel-info">
+  <div class="panel-body">
+
+    <button class="btn btn-sm btn-primary pull-right" type="button" ng-if="collection.upload_status == 'complete'" ng-click='createOrder($event)'>Create Order</button>
+    <button class="btn btn-sm btn-primary pull-right" type="button" ng-if="collection.upload_status == 'ready'" ng-click='completeCollection($event)'>Complete Collection</button>
+
+    <dl class="dl-horizontal">
+      <dt>Type</dt>
+      <dd>{{collection.type | collectionType}}</dd>
+      <dt>Created At</dt>
+      <dd>{{collection.created_at | date:'MM/dd/yyyy hh:mma'}}</dd>
+      <dt>Expires At</dt>
+      <dd>{{collection.expires_at | date:'MM/dd/yyyy hh:mma'}}</dd>
+      <dt>Size</dt>
+      <dd>{{collection.bytes | bytes}}</dd>
+      <dt>Size Left</dt>
+      <dd>{{collection.bytes_left | bytes}}</dd>
+      <dt>Upload Status</dt>
+      <dd>{{collection.upload_status}}</dd>
+      <dt>S3 Copy Status</dt>
+      <dd>{{collection.s3_copy_status}}</dd>
+    </dl>
+
+    <h4>
+      Files
+      <button id="btn-add-files" class="btn btn-sm btn-primary" type="button" ng-if="collection.upload_status == 'ready'" ng-click='addFiles()'>Add Files</button>
+    </h4>
+
+    <table class="table table-striped table-hover table-condensed">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Path</th>
+          <th>Chunked Status</th>
+          <th>S3 Copy Status</th>
+          <th>Size</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="file in files | orderBy:'path'">
+          <td>
+            <a ng-if="file.chunked_status != 'none'" ng-href='#/collections/{{file.collection_id}}/files/{{file.id}}'>{{file.id}}</a>
+            <span ng-if="file.chunked_status == 'none'">{{file.id}}</span>
+          </td>
+          <td>{{file.path}}</td>
+          <td>{{file.chunked_status}}</td>
+          <td>{{file.s3_copy_status}}</td>
+          <td>{{file.bytes | bytes}}</td>
+          <td><a href='' ng-if="collection.upload_status == 'ready'" ng-click='removeFile(file)'>remove</a></td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>

@@ -1,0 +1,39 @@
+<ul class="nav nav-pills">
+  <li><a href="#/collections">Collections</a></li>
+  <li class="active"><a href="#/orders">Orders</a></li>
+</ul>
+
+<ol class="breadcrumb">
+  <li class="active">Order {{order.id}}</li>
+</ol>
+
+<div class="panel panel-info">
+  <div class="panel-body">
+
+    <dl class="dl-horizontal">
+      <dt>Title</dt>
+      <dd>{{order.title}}</dd>
+      <dt>Created At</dt>
+      <dd>{{order.created_at | date:'MM/dd/yyyy hh:mma'}}</dd>
+      <dt>Updated At</dt>
+      <dd>{{order.updated_at | date:'MM/dd/yyyy hh:mma'}}</dd>
+      <dt>Collection</dt>
+      <dd><a ng-href='#/collections/{{order.collection_id}}'>{{order.collection_id}}</a></dd>
+      <dt>Total</dt>
+      <dd>{{order.total}}</dd>
+      <dt>Status</dt>
+      <dd>{{order.status}}</dd>
+      <dt>Ship To</dt>
+      <dd>
+        <address>
+          {{order.ship_to.recipient}}<br/>
+          {{order.ship_to.address1}}<br/>
+          <span ng-if="order.ship_to.address2 != null">|{{order.ship_to.address2}}|<br/></span>
+          {{order.ship_to.city}}, {{order.ship_to.state}} {{order.ship_to.postal_code}}<br/>
+          {{order.ship_to.phone_number}}
+        </address>
+      </dd>
+    </dl>
+
+  </div>
+</div>

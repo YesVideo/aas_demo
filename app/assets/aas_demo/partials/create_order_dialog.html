@@ -1,0 +1,79 @@
+<div class="modal" id="createOrderModal" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header dialog-header-confirm">
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <h4 class="modal-title">Create Order</h4>
+      </div>
+
+      <div class="modal-body">
+        <form class="form-horizontal" role="form">
+          <div class="form-group">
+            <label for="inputTitle" class="col-sm-2 control-label">Title</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="inputTitle" placeholder="Title" ng-model="$parent.title" autofocus="autofocus">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputRecipient" class="col-sm-2 control-label">Recipient</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="inputRecipient" placeholder="Recipient" ng-model="$parent.ship_to.recipient">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputAddress1" class="col-sm-2 control-label">Address</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="inputAddress1" placeholder="Address Line 1" ng-model="$parent.ship_to.address1">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputAddress2" class="col-sm-2 control-label"></label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="inputAddress2" placeholder="Address Line 2" ng-model="$parent.ship_to.address2">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputCity" class="col-sm-2 control-label">City</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="inputCity" placeholder="City" ng-model="$parent.ship_to.city">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputState" class="col-sm-2 control-label">State</label>
+            <div class="col-sm-10">
+              <ang-select-usstates ng-model="stateSelect.selectedState" name="State" id="selectState"></ang-select-usstates>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputPostalCode" class="col-sm-2 control-label">Zip</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="inputPostalCode" placeholder="Zip Code" ng-model="$parent.ship_to.postal_code">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputPhoneNumber" class="col-sm-2 control-label">Phone</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="inputPhoneNumber" placeholder="Phone Number" ng-model="$parent.ship_to.phone_number">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" ng-model="$parent.no_disc"> Test Order (no disc output)
+                </label>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" ng-click=
+        "create()">Create</button><button type="button" class="btn btn-primary" ng-click=
+        "cancel()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>

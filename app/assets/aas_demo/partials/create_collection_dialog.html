@@ -1,0 +1,21 @@
+<div class="modal" id="createCollectionModal" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header dialog-header-confirm">
+        <button type="button" class="close" ng-click="cancel()">&times;</button>
+        <h4 class="modal-title">Select new collection type</h4>
+      </div>
+
+      <div class="modal-body">
+        <input type="radio" ng-model="$parent.discType" value="dvd_4_7G"> DVD<br/>
+        <input type="radio" ng-model="$parent.discType" value="blu_ray_25G"> Blu-ray<br/>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" ng-click=
+        "create()">Create</button><button type="button" class="btn btn-primary" ng-click=
+        "cancel()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
