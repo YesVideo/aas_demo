@@ -1,18 +1,6 @@
 <link rel="stylesheet" href="/assets/aas_demo.css"/>
 <link rel="stylesheet" href="/assets/vendor/dialogs.min.css"/>
 
-<div id="aas-demo" class="view-container">
-  <div ng-cloak class="ng-cloak">
-    <div ng-controller="AlertCtrl">
-      <div class="container">
-        <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
-      </div>
-      
-      <div ng-view class="view-frame container"></div>
-    </div>
-  </div>
-</div>
-
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.8/angular.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.8/angular-animate.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.8/angular-sanitize.js"></script>
@@ -29,12 +17,28 @@
 <script src="/assets/controllers.js"></script>
 <script src="/assets/filters.js"></script>
 
+<div id="aas-demo" class="view-container">
+  <div ng-cloak class="ng-cloak">
+    <div ng-controller="AlertCtrl">
+      <div class="container">
+        <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+      </div>
+      
+      <div ng-view class="view-frame container"></div>
+    </div>
+  </div>
+</div>
+
 <script type='text/javascript'>
   angular.module('aasDemo')
     .constant('apiUrl', "<%= @api_url %>")
     .constant('apiClientId', "<%= @api_client_id %>")
     .constant('apiSecret', "<%= @api_secret %>")
     .constant('filepickerKey', "<%= @filepicker_key %>");
+
+  angular.module('aasDemo.controllers')
+    .constant('upload_bucket', "<%= @upload_bucket %>")
+    .constant('upload_path', "<%= @upload_path %>");
 
   angular.bootstrap($('#aas-demo'), ['aasDemo']);
 </script>

@@ -4,8 +4,10 @@ var aasCtrls = angular.module('aasDemo.controllers', ['ui.bootstrap', 'dialogs',
 
 // Top-level controller for bootstrap alerts.
 aasCtrls.controller('AlertCtrl', ['$scope',
-  function($scope) {
+  function($scope, $routeChangeStart) {
     $scope.alerts = [];
+
+    $scope.$on('$routeChangeStart', function() {$scope.alerts = []});
 
     $scope.successAlert = function(msg) {
       $scope.alerts.push({type: 'success', msg: msg});

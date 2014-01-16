@@ -6,26 +6,6 @@
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css"/>
   <link rel="stylesheet" href="stylesheets/aas_demo.css"/>
   <link rel="stylesheet" href="stylesheets/vendor/dialogs.min.css"/>
-</head>
-<body class="aas_demo">
-  <nav class="navbar navbar-default" role="navigation">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#">YesVideo AaS Demo</a>
-    </div>
-  </nav>
-
-  <div id="aas-demo" class="view-container">
-    <div ng-cloak class="ng-cloak">
-      <div ng-controller="AlertCtrl">
-        <div class="container">
-          <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
-        </div>
-      
-        <div ng-view class="view-frame container"></div>
-      </div>
-    </div>
-  </div>
-
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.8/angular.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.8/angular-animate.js"></script>
@@ -44,5 +24,26 @@
   <script src="javascripts/filters.js"></script>
 
   <script src="config.js"></script>
+</head>
+<body class="aas_demo">
+
+  <nav class="navbar navbar-default" role="navigation">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">YesVideo AaS Demo</a>
+    </div>
+  </nav>
+
+  <div id="aas-demo" class="view-container">
+    <div ng-cloak class="ng-cloak">
+      <div ng-controller="AlertCtrl">
+        <div class="container">
+          <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+        </div>
+      
+        <div ng-view class="view-frame container"></div>
+      </div>
+    </div>
+  </div>
+
 </body>
 </html>

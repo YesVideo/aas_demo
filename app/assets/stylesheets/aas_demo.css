@@ -69,10 +69,10 @@
 }
 
 #aas-demo .view-frame.ng-leave {
-  -webkit-animation: 0.5s fade-out;
-  -moz-animation: 0.5s fade-out;
-  -o-animation: 0.5s fade-out;
-  animation: 0.5s fade-out;
+  -webkit-animation: 0.25s fade-out;
+  -moz-animation: 0.25s fade-out;
+  -o-animation: 0.25s fade-out;
+  animation: 0.25s fade-out;
   z-index: 99;
 }
 
