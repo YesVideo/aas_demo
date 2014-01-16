@@ -1,10 +1,10 @@
 'use strict';
 
-var aasCtrls = angular.module('aasDemo.controllers', ['ui.bootstrap', 'dialogs', 'angular-directive-select-usstates']);
+var aasCtrls = angular.module('aasDemo.controllers', ['ui.bootstrap', 'dialogs', 'angular-directive-select-usstates', 'aasDemo.services']);
 
 // Top-level controller for bootstrap alerts.
-aasCtrls.controller('AlertCtrl', ['$scope',
-  function($scope, $routeChangeStart) {
+aasCtrls.controller('AlertCtrl', ['$scope', 
+  function($scope) {
     $scope.alerts = [];
 
     $scope.$on('$routeChangeStart', function() {$scope.alerts = []});

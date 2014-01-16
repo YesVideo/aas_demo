@@ -1,30 +1,18 @@
-'use strict';
-
-angular.module('aasDemo', [
-  'ngRoute',
-  'ngAnimate',
-  'restangular',
-  'aasDemo.services',
-  'aasDemo.controllers',
-  'aasDemo.filters'
-])
-
-.config(['$routeProvider', 'RestangularProvider', 'AaSProvider', 'apiClientId', 'apiSecret', 'apiUrl', 'filepickerKey',
-  function($routeProvider, RestangularProvider, AaSProvider, apiClientId, apiSecret, apiUrl, filepickerKey) {
-
-    $routeProvider.when('/collections', {templateUrl: 'aas_demo/partials/collections.html', controller: 'CollectionsCtrl'});
-    $routeProvider.when('/collections/:collectionId', {templateUrl: 'aas_demo/partials/collection.html', controller: 'CollectionCtrl'});
-    $routeProvider.when('/collections/:collectionId/files/:fileId', {templateUrl: 'aas_demo/partials/file.html', controller: 'FileCtrl'});
-    $routeProvider.when('/orders', {templateUrl: 'aas_demo/partials/orders.html', controller: 'OrdersCtrl'});
-    $routeProvider.when('/orders/:orderId', {templateUrl: 'aas_demo/partials/order.html', controller: 'OrderCtrl'});
-    $routeProvider.otherwise({redirectTo: '/collections'});
-
-    AaSProvider.setup({clientId: apiClientId, secret: apiSecret, serverUrl: apiUrl});
-    RestangularProvider.setBaseUrl(apiUrl);
-    RestangularProvider.setResponseExtractor(function(resp, operation, what, url) {
-      return (operation === 'getList') ? resp[what.split('/').pop()] : resp;
-    });
-    
-    filepicker.setKey(filepickerKey);
-  }
-]);
+// This is a manifest file that'll be compiled into aas_demo.js, which will include all the files
+// listed below.
+//
+// Any JavaScript/Coffee file within this directory, libjavascripts, vendorjavascripts,
+// or vendorjavascripts of plugins, if any, can be referenced here using a relative path.
+//
+// It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
+// the compiled file.
+//
+// WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
+// GO AFTER THE REQUIRES BELOW.
+//
+//= require_tree ./vendor
+//= require app.js
+//= require aas_demo.js
+//= require services.js
+//= require controllers.js
+//= require filters.js

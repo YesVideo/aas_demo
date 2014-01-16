@@ -7,59 +7,61 @@
 
 var aasServices = angular.module('aasDemo.services', ['restangular']);
 
-aasServices.provider('AaS', function() {
-  
-  var _config, authReq;
+aasServices.provider('AaS', {
+    _config: null,
+    authReq: null,
     
-  // The app calls this at initialization time in order to set the AaS credentials.
-  this.setup = function(config) {
-    _config = config;
-  }
+    // The app calls this at initialization time in order to set the AaS credentials.
+    setup: function(config) {
+      this._config = config;
+    },
 
-  this.$get = function($http, Restangular) {
-    return {
-      // Authenticates against AaS (if we haven't already) and then executes the specified then callback.
-      auth: function(then) {
-        authReq = authReq || $http.post(
-          (_config.serverUrl || 'https://aas.yesvideo.com') + '/oauth/token',
-          {'grant_type': 'client_credentials'},
-          {
-            responseType: 'json',
-            headers: {Authorization: 'Basic ' + btoa(_config.clientId + ':' + _config.secret)}
-          }
-        ).success(function(resp) {
-          Restangular.setDefaultHeaders({
-            Authorization: 'Bearer ' + resp.access_token
-          })
-        });
+    $get: ['$http', 'Restangular', function($http, Restangular) {
+      self = this;
+      return {
+        // Authenticates against AaS (if we haven't already) and then executes the specified then callback.
+        auth: function(then) {
+          self.authReq = self.authReq || $http.post(
+            (self._config.serverUrl || 'https://aas.yesvideo.com') + '/oauth/token',
+            {'grant_type': 'client_credentials'},
+            {
+              responseType: 'json',
+              headers: {Authorization: 'Basic ' + btoa(self._config.clientId + ':' + self._config.secret)}
+            }
+          ).success(function(resp) {
+            Restangular.setDefaultHeaders({
+              Authorization: 'Bearer ' + resp.access_token
+            })
+          });
         
-        return authReq.then(then);
-      },
+          return self.authReq.then(then);
+        },
 
-      // Returns a Restangular element based at the specified path.
-      restFrom: function(path) {
-        return Restangular.one(path);
-      },
+        // Returns a Restangular element based at the specified path.
+        restFrom: function(path) {
+          return Restangular.one(path);
+        },
 
-      // Executes the rest function and then populates the result array into tgt and calls success (or err).
-      getArr: function(tgt, rest, success, err) {
-        this.auth(rest).then(function(resp) {
-          resp.forEach(function(obj) {tgt.push(obj)});
-          _.extend(tgt, resp);
-          success && success();
-        }, err);
-      },
+        // Executes the rest function and then populates the result array into tgt and calls success (or err).
+        getArr: function(tgt, rest, success, err) {
+          this.auth(rest).then(function(resp) {
+            resp.forEach(function(obj) {tgt.push(obj)});
+            _.extend(tgt, resp);
+            success && success();
+          }, err);
+        },
 
-      // Executes the rest function and then populates the result object into tgt and calls success (or err).
-      getObj: function(tgt, rest, success, err) {
-        this.auth(rest).then(function(resp) {
-          _.extend(tgt, resp);
-          success && success();
-        }, err);
+        // Executes the rest function and then populates the result object into tgt and calls success (or err).
+        getObj: function(tgt, rest, success, err) {
+          this.auth(rest).then(function(resp) {
+            _.extend(tgt, resp);
+            success && success();
+          }, err);
+        }
       }
-    }
+    }]
   }
-});
+);
 
 // REST API for Collections
 aasServices.factory('Collections', ['AaS',
