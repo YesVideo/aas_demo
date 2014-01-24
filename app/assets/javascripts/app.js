@@ -27,4 +27,12 @@ angular.module('aasDemo', [
     
     filepicker.setKey(filepickerKey);
   }
+])
+
+.run(['$rootScope', '$location',
+  function ($rootScope, $location) {
+    $rootScope.$on('$routeChangeSuccess', function(){
+      window['ga']('send', 'pageview', location.pathname + $location.path());
+    });
+  }
 ]);
