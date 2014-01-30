@@ -18,6 +18,21 @@
   width: 16.666666666666664%;
 }
 
+.aas_demo form input.ng-invalid.ng-dirty {
+  background-color: #FA787E;
+}
+
+.aas_demo input:focus:required:invalid:focus, .aas_demo select:focus:required:invalid:focus {
+  border-color: #e9322d;
+  -webkit-box-shadow: 0 0 6px #f8b9b7;
+  -moz-box-shadow: 0 0 6px #f8b9b7;
+  box-shadow: 0 0 6px #f8b9b7;
+}
+
+.aas_demo button {
+  margin-right: 5px;
+}
+
 #aas-demo {
   margin-top: 20px;
 }

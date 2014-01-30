@@ -10,8 +10,16 @@
 <div class="panel panel-info">
   <div class="panel-body">
 
-    <button class="btn btn-sm btn-primary pull-right" type="button" ng-if="collection.upload_status == 'complete'" ng-click='createOrder($event)'>Create Order</button>
-    <button class="btn btn-sm btn-primary pull-right" type="button" ng-if="collection.upload_status == 'ready'" ng-click='completeCollection($event)'>Complete Collection</button>
+    <div class="pull-right" tooltip-placement='bottom' tooltip='{{canOrder() ? "" : "Collection status must be complete before ordering."}}'>
+      <button class="btn btn-sm btn-primary" type="button" ng-disabled="! canOrder()" ng-click='createOrder($event)'>Create Order</button>
+    </div>
+    <div class="pull-right" tooltip-placement='bottom' tooltip='{{allFilesCopied ? "" : "All files must have completed upload before collection can be completed."}}'>
+      <button class="btn btn-sm btn-primary" type="button" 
+        ng-disabled="! canComplete()" 
+        ng-click='completeCollection($event)'>
+        Complete Collection
+      </button>
+    </div>
 
     <dl class="dl-horizontal">
       <dt>Type</dt>
@@ -54,7 +62,10 @@
           </td>
           <td>{{file.path}}</td>
           <td>{{file.chunked_status}}</td>
-          <td>{{file.s3_copy_status}}</td>
+          <td>
+            {{file.s3_copy_status}}
+            <span class="fa fa-refresh fa-spin" ng-if="file.s3_copy_status == 'copying'"></span>
+          </td>
           <td>{{file.bytes | bytes}}</td>
           <td><a href='' ng-if="collection.upload_status == 'ready'" ng-click='removeFile(file)'>remove</a></td>
         </tr>

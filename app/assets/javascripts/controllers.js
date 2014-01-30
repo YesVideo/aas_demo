@@ -94,17 +94,45 @@ aasCtrls.controller('CollectionsCtrl', ['$scope', '$dialogs', 'Collections',
 ]);
 
 // Controller for individual Collections.
-aasCtrls.controller('CollectionCtrl', ['$scope', '$routeParams', '$dialogs', 'Collections', 'Files', 'Orders', 'upload_bucket', 'upload_path',
-  function($scope, $routeParams, $dialogs, Collections, Files, Orders, upload_bucket, upload_path) {
+aasCtrls.controller('CollectionCtrl', ['$scope', '$routeParams', '$dialogs', '$interval', 'Collections', 'Files', 'Orders', 'upload_bucket', 'upload_path',
+  function($scope, $routeParams, $dialogs, $interval, Collections, Files, Orders, upload_bucket, upload_path) {
     function loadCollection() {
       Collections.show($scope.collection = $scope.collection || {}, $routeParams.collectionId);
     }
     loadCollection();
 
     function loadFiles() {
-      Files.list($scope.files = $scope.files || [], $routeParams.collectionId);
+      Files.list($scope.files = $scope.files || [], $routeParams.collectionId, pollUntilFilesCopied);
     }
     loadFiles();
+
+    $scope.allFilesCopied = false;
+    function checkAllFilesCopied() {
+      return $scope.allFilesCopied = ! _.any($scope.files, function(file) {return file.s3_copy_status == 'copying'});
+    }
+
+    var filePoller = null;
+    function pollUntilFilesCopied() {
+      if (! checkAllFilesCopied() && ! filePoller) {
+        filePoller = $interval(function() {
+          if (! checkAllFilesCopied()) {
+            loadFiles();
+          }
+          else {
+            $interval.cancel(filePoller);
+            filePoller = null;
+          }
+        }, 5000)
+      }
+    }
+
+    $scope.canOrder = function() {
+      return $scope.collection.upload_status == 'complete';
+    }
+
+    $scope.canComplete = function() {
+      return $scope.collection.upload_status == 'ready' && $scope.allFilesCopied;
+    }
 
     $scope.createOrder = function(evt) {
       evt.target.blur();
@@ -163,13 +191,16 @@ aasCtrls.controller('CollectionCtrl', ['$scope', '$routeParams', '$dialogs', 'Co
         blobs.forEach(function(blob) {
           Files.s3_copy_create($scope.collection.id, blob.path || blob.filename, '/' + blob.container + '/' + blob.key, function(resp) {
             $scope.files.splice(0, 0, resp);
+            pollUntilFilesCopied();
           }, function(resp) {
             $dialogs.error(resp.data.error);
           });
         });
         loadCollection();
       }, function(err) {
-        $dialogs.error(err);
+        if (! err.code || err.code != 101 /* no files chosen */) {
+          $dialogs.error("Error uploading files.  Please try again.");
+        }
       });
 
     };

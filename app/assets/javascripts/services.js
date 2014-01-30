@@ -45,7 +45,15 @@ aasServices.provider('AaS', {
         // Executes the rest function and then populates the result array into tgt and calls success (or err).
         getArr: function(tgt, rest, success, err) {
           this.auth(rest).then(function(resp) {
-            resp.forEach(function(obj) {tgt.push(obj)});
+            resp.forEach(function(obj) {
+              var existing = _.find(tgt, function(o){return o.id == obj.id});
+              if (existing) {
+                _.extend(existing, obj);
+              }
+              else {
+                tgt.push(obj)
+              }
+            });
             _.extend(tgt, resp);
             success && success();
           }, err);

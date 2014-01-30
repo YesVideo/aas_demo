@@ -32,7 +32,7 @@ angular.module('aasDemo', [
 .run(['$rootScope', '$location',
   function ($rootScope, $location) {
     $rootScope.$on('$routeChangeSuccess', function(){
-      window['ga']('send', 'pageview', location.pathname + $location.path());
+      window['ga'] && window['ga']('send', 'pageview', location.pathname + $location.path());
     });
   }
 ]);

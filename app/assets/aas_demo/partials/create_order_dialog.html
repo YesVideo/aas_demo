@@ -7,35 +7,35 @@
       </div>
 
       <div class="modal-body">
-        <form class="form-horizontal" role="form">
+        <form name="form" class="form-horizontal" role="form" novalidate>
           <div class="form-group">
             <label for="inputTitle" class="col-sm-2 control-label">Title</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="inputTitle" placeholder="Title" ng-model="$parent.title" autofocus="autofocus">
+              <input type="text" class="form-control" id="inputTitle" placeholder="Title" ng-model="$parent.title" autofocus="autofocus" ng-minlength="3" maxlength="36" required/>
             </div>
           </div>
           <div class="form-group">
             <label for="inputRecipient" class="col-sm-2 control-label">Recipient</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="inputRecipient" placeholder="Recipient" ng-model="$parent.ship_to.recipient">
+              <input type="text" class="form-control" id="inputRecipient" placeholder="Recipient" ng-model="$parent.ship_to.recipient" ng-minlength="3" maxlength="50" required/>
             </div>
           </div>
           <div class="form-group">
             <label for="inputAddress1" class="col-sm-2 control-label">Address</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="inputAddress1" placeholder="Address Line 1" ng-model="$parent.ship_to.address1">
+              <input type="text" class="form-control" id="inputAddress1" placeholder="Address Line 1" ng-model="$parent.ship_to.address1" ng-minlength="3" maxlength="100" required/>
             </div>
           </div>
           <div class="form-group">
             <label for="inputAddress2" class="col-sm-2 control-label"></label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="inputAddress2" placeholder="Address Line 2" ng-model="$parent.ship_to.address2">
+              <input type="text" class="form-control" id="inputAddress2" placeholder="Address Line 2" ng-model="$parent.ship_to.address2" ng-minlength="3" maxlength="100" />
             </div>
           </div>
           <div class="form-group">
             <label for="inputCity" class="col-sm-2 control-label">City</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="inputCity" placeholder="City" ng-model="$parent.ship_to.city">
+              <input type="text" class="form-control" id="inputCity" placeholder="City" ng-model="$parent.ship_to.city" ng-minlength="3" maxlength="50" required/>
             </div>
           </div>
           <div class="form-group">
@@ -47,13 +47,13 @@
           <div class="form-group">
             <label for="inputPostalCode" class="col-sm-2 control-label">Zip</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="inputPostalCode" placeholder="Zip Code" ng-model="$parent.ship_to.postal_code">
+              <input type="text" class="form-control" id="inputPostalCode" placeholder="Zip Code" ng-model="$parent.ship_to.postal_code" ng-pattern="/^\d{5}(?:[-\s]\d{4})?$/" required/>
             </div>
           </div>
           <div class="form-group">
             <label for="inputPhoneNumber" class="col-sm-2 control-label">Phone</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="inputPhoneNumber" placeholder="Phone Number" ng-model="$parent.ship_to.phone_number">
+              <input type="text" class="form-control" id="inputPhoneNumber" placeholder="Phone Number" ng-model="$parent.ship_to.phone_number" ng-pattern="/1?\W*([2-9][0-8][0-9])\W*([2-9][0-9]{2})\W*([0-9]{4})?/" required/>
             </div>
           </div>
 
@@ -70,9 +70,8 @@
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" ng-click=
-        "create()">Create</button><button type="button" class="btn btn-primary" ng-click=
-        "cancel()">Cancel</button>
+        <button type="button" class="btn btn-primary" ng-click="create()" ng-disabled="form.$invalid">Create</button>
+        <button type="button" class="btn btn-default" ng-click="cancel()">Cancel</button>
       </div>
     </div>
   </div>

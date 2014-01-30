@@ -246,7 +246,7 @@ angular.module('templates-angular-directive-select-usstates', ['angular-directiv
 angular.module("angular-directive-select-usstates/index.tpl.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("angular-directive-select-usstates/index.tpl.html",
     "\n" +
-    "  <select class='form-control' ng-options=\"state.abbreviation as state.name for state in states\">\n" +
+    "  <select class='form-control' ng-options=\"state.abbreviation as state.name for state in states\" required>\n" +
     "    <option value=\"\">{{ emptyName }}</option>\n" +
     "  </select>\n" +
     "");
