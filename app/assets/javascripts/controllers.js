@@ -108,7 +108,11 @@ aasCtrls.controller('CollectionCtrl', ['$scope', '$routeParams', '$dialogs', '$i
 
     $scope.allFilesCopied = false;
     function checkAllFilesCopied() {
-      return $scope.allFilesCopied = ! _.any($scope.files, function(file) {return file.s3_copy_status == 'copying'});
+      $scope.allFilesCopied = ! _.any($scope.files, function(file) {return file.s3_copy_status == 'copying'});
+      if ($scope.allFilesCopied && $scope.collection.s3_copy_status == 'copying') {
+        loadCollection();
+      }
+      return $scope.allFilesCopied;
     }
 
     var filePoller = null;
